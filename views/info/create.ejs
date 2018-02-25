@@ -1,0 +1,129 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Q-pon</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/info/index">Home<span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="/info/search">Search</a>
+            <a class="nav-item nav-link active" href="/info/create">Create</a>
+            <a class="nav-item nav-link" href="/info/admin">Admin</a>
+        </div>
+    </div>
+</nav>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Q-pon</h1>
+        <p class="lead">Redeem your coins for dining coupons</p>
+    </div>
+</div>
+
+<form action="/info/create" method="POST">
+    <div class="row">
+        <div class="col-xl-6 col-12 col-sm-6 col-lg-6">
+            <label for="basic-url">Title:</label>
+            <input id="title" name="Info[title]" type="text" class="form-control" placeholder="Title Name">
+        </div>
+
+        <div class="col-xl-6 col-12 col-sm-6 col-lg-6">
+            <label for="basic-url">Restautant:</label>
+            <input id="restaurant" name="Info[restaurant]" type="text" class="form-control" placeholder="Restautant Name">
+        </div>
+
+        <div class="col-xl-6 col-12 col-sm-6 col-lg-6">
+            <label for="basic-url">District:</label>
+            <select name="Info[district]" class="form-control" id="district" onchange="changeMall(this)">
+                <option value="HK Island">HK Island</option>
+                <option value="Kowloon">Kowloon</option>
+                <option value="New Territories">New Territories</option>
+            </select>
+        </div>
+
+        <div class="col-xl-6 col-12 col-sm-6 col-lg-6">
+            <label for="basic-url">Mall:</label>
+            <select name="Info[mall]" class="form-control" id="mall">
+            </select>
+        </div>
+
+        <div class="col-xl-6 col-12 col-sm-6 col-lg-6">
+            <label for="basic-url">Image:</label>
+            <input id="image" name="Info[image]" type="text" class="form-control" placeholder="image url">
+        </div>
+
+        <div class="col-xl-6 col-12 col-sm-6 col-lg-6">
+            <label for="basic-url">Coin:</label>
+            <input id="coin" name="Info[coin]" type="number" class="form-control" placeholder="value">
+        </div>
+
+        <div class="col-xl-6 col-12 col-sm-6 col-lg-6" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+            <label for="basic-url">Date Valid Till:</label>
+            <input id="datepicker" name="Info[date]" class="form-control">
+        </div>
+
+        <div class="col-xl-6 col-12 col-sm-6 col-lg-6">
+            <label for="basic-url">Quota:</label>
+            <input id="quota" name="Info[quota]" type="number" class="form-control" placeholder="value">
+        </div>
+
+        <div class="col-xl-6 col-12 col-sm-6 col-lg-6">
+            <label for="basic-url">Details:</label>
+            <textarea class="form-control" id="detail" name="Info[detail]" rows="3"></textarea>
+        </div>
+    </div>
+    <br>
+    <div class="row mx-auto">
+        <input type="submit" class="btn btn-lg btn-primary" value="Submit">&nbsp&nbsp
+        <input type="reset" class="btn btn-lg btn-light" value="Clear">
+    </div>
+</form>
+
+<script type="text/javascript">
+    $('#datepicker').datepicker({
+        daysOfWeekDisabled: [0,6]
+    });
+    function changeMall(item){
+        if(item.value =='HK Island'){
+            $('#mall').empty();
+            $('#mall').append('<option value="IFC">IFC</option>' +
+                '<option value="金鐘太古廣場">金鐘太古廣場</option>' +
+                '<option value="時代廣場">時代廣場</option>' +
+                '<option value="銅鑼灣世貿中心">銅鑼灣世貿中心</option>' +
+                '<option value="太古城中心">太古城中心</option>' +
+                '<option value="杏花新城商場">杏花新城商場</option>' +
+                '<option value="數碼港商場">數碼港商場</option>');
+
+        }else if(item.value == 'Kowloon'){
+            $('#mall').empty();
+            $('#mall').append('<option value="圓方">圓方</option>' +
+                '<option value="Elements Harbour City">Elements Harbour City</option>' +
+                '<option value="海港城">海港城</option>' +
+                '<option value="美麗華商場">美麗華商場</option>' +
+                '<option value="黃埔新天地">黃埔新天地場</option>' +
+                '<option value="又一城">又一城</option>' +
+                '<option value="朗豪坊商場">朗豪坊商場</option>' +
+                '<option value="新世紀廣場">新世紀廣場</option>' +
+                '<option value="奧海城">奧海城</option>' +
+                '<option value="MegaBox">MegaBox</option>' +
+                '<option value="德福廣場商場">德福廣場商場</option>' +
+                '<option value="荷里活廣場">荷里活廣場</option>' +
+                '<option value="APM">APM</option>');
+        }else if(item.value == 'New Territories'){
+            $('#mall').empty();
+            $('#mall').append('<option value="荃新天地">荃新天地</option>' +
+                '<option value="荃灣廣場">荃灣廣場</option>' +
+                '<option value="悅來坊商場">悅來坊商場</option>' +
+                '<option value="綠楊坊商場">綠楊坊商場</option>' +
+                '<option value="新都會廣場">新都會廣場</option>' +
+                '<option value="青衣城商場">青衣城商場</option>' +
+                '<option value="屯門市廣場">屯門市廣場</option>' +
+                '<option value="東港城">東港城</option>' +
+                '<option value="君薈坊商場">君薈坊商場</option>' +
+                '<option value="連理街">連理街</option>' +
+                '<option value="沙田新城市廣場">沙田新城市廣場</option>' +
+                '<option value="大埔超級城">大埔超級城</option>');
+        }
+    }
+</script>
+

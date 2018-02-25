@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Q-pon</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/info/index">Home<span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="/info/search">Search</a>
+            <a class="nav-item nav-link" href="/info/create">Create</a>
+            <a class="nav-item nav-link" href="/info/admin">Admin</a>
+        </div>
+    </div>
+</nav>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Q-pon</h1>
+        <p class="lead">Redeem your coins for dining coupons</p>
+    </div>
+</div>
+
+<div class="card text-center">
+    <div class="card-header">
+        Alert Message
+    </div>
+    <div class="card-body">
+        <h5 class="card-title"><%=value %> <%=state %></h5>
+        <p class="card-text">Click button to back to the page</p>
+        <a href="/info/redirect/<%=url%>" class="btn btn-primary">Confirm</a>
+    </div>
+    <div class="card-footer text-muted">
+        <%=state%>
+    </div>
+</div>

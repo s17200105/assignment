@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Q-pon</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/info/index">Home<span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="/info/search">Search</a>
+            <a class="nav-item nav-link" href="/info/create">Create</a>
+            <a class="nav-item nav-link active" href="/info/admin">Admin</a>
+        </div>
+    </div>
+</nav>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Q-pon</h1>
+        <p class="lead">Redeem your coins for dining coupons</p>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">title</th>
+        <th scope="col">Restaurant</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <% Infos.forEach( function(model) {%>
+    <tr>
+        <td><%=model.id%></td>
+        <td><%=model.title%></td>
+        <td><%=model.restaurant%></td>
+        <td><a href="/info/update/<%= model.id%>" class="btn btn-primary">Update</a></td>
+        <td><a href="/info/delete/<%= model.id%>" class="btn btn-secondary">Delete</a></td>
+    </tr>
+    <%});%>
+</table>
