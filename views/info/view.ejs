@@ -1,41 +1,35 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Q-pon</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="/info/index">Home<span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="/info/search">Search</a>
-            <a class="nav-item nav-link" href="/info/create">Create</a>
-            <a class="nav-item nav-link" href="/info/admin">Admin</a>
-        </div>
-    </div>
-</nav>
-
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">Q-pon</h1>
-        <p class="lead">Redeem your coins for dining coupons</p>
-    </div>
-</div>
-
 <div class="row">
     <div class="col-xl-6 col-12 col-sm-12 col-xs-12 col-lg-6">
         <div style="width: 30rem;margin:3px;">
             <img style="margin:5px;max-width: 100%;" class="img-fluid" src="<%= info.image%>" alt="Responsive image">
         </div>
     </div>
-    <div class="col-xl-6 col-12 col-sm-12 col-xs-12 col-lg-6">
-        <div class="card" style="width: 30rem;margin:5px;">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><%= info.restaurant%></li>
-                <li class="list-group-item"><%= info.title%></li>
-                <li class="list-group-item">Coins: <%= info.coin%></li>
-                <li class="list-group-item">Address: <%= info.district%>,<%= info.mall%></li>
-                <li class="list-group-item">Valid Till: <%= info.date%></li>
-                <li class="list-group-item"><%= info.detail%></li>
-            </ul>
+        <div class="col-xl-6 col-12 col-sm-12 col-xs-12 col-lg-6">
+            <form action="/info/view" method="POST">
+                <div class="card" style="width: 30rem;margin:5px;">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><%= info.restaurant%></li>
+                        <li class="list-group-item"><%= info.title%></li>
+                        <li class="list-group-item">Coins: <%= info.coin%></li>
+                        <li class="list-group-item">Address: <%= info.district%>,<%= info.mall%></li>
+                        <li class="list-group-item">Valid Till: <%= info.date%></li>
+                        <li class="list-group-item"><%= info.detail%></li>
+                    </ul>
+                </div>
+                <input type="hidden" name="Qpon[username]" value="<%=username%>">
+                <input type="hidden" name="Qpon[titleid]" value=<%=info.id%>>
+                <input type="hidden" name="Qpon[title]" value="<%=info.title%>">
+                <input type="hidden" name="Qpon[restaurant]" value="<%=info.restaurant%>">
+                <input type="hidden" name="Qpon[district]" value="<%=info.district%>">
+                <input type="hidden" name="Qpon[mall]" value="<%=info.mall%>">
+                <input type="hidden" name="Qpon[image]" value="<%=info.image%>">
+                <input type="hidden" name="Qpon[coin]" value="<%=info.coin%>">
+                <input type="hidden" name="Qpon[date]" value="<%=info.date%>">
+                <input type="hidden" name="Qpon[detail]" value="<%=info.detail%>">
+
+                <%if(username != "Visitor" && username != "admin" && status != false){%>
+                    <input type="submit" class="btn btn-lg btn-primary" value="Redeem">
+                 <% }%>
+            </form>
         </div>
-    </div>
 </div>

@@ -1,0 +1,12 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Username</th>
+    </tr>
+    </thead>
+    <% Qpons.forEach( function(model) {%>
+    <tr>
+        <td><%=model.username%></td>
+    </tr>
+    <%});%>
+</table>

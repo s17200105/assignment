@@ -1,24 +1,3 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Q-pon</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link" href="/info/index">Home<span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="/info/search">Search</a>
-            <a class="nav-item nav-link active" href="/info/create">Create</a>
-            <a class="nav-item nav-link" href="/info/admin">Admin</a>
-        </div>
-    </div>
-</nav>
-
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">Q-pon</h1>
-        <p class="lead">Redeem your coins for dining coupons</p>
-    </div>
-</div>
 
 <form action="/info/create" method="POST">
     <div class="row">
@@ -36,7 +15,7 @@
             <label for="basic-url">District:</label>
             <select name="Info[district]" class="form-control" id="district" onchange="changeMall(this)">
                 <option value="HK Island">HK Island</option>
-                <option value="Kowloon">Kowloon</option>
+                <option selected value="Kowloon">Kowloon</option>
                 <option value="New Territories">New Territories</option>
             </select>
         </div>
@@ -44,6 +23,19 @@
         <div class="col-xl-6 col-12 col-sm-6 col-lg-6">
             <label for="basic-url">Mall:</label>
             <select name="Info[mall]" class="form-control" id="mall">
+                <option selected value="圓方">圓方</option>
+                <option value="Elements Harbour City">Elements Harbour City</option>
+                <option value="海港城">海港城</option>
+                <option value="美麗華商場">美麗華商場</option>
+                <option value="黃埔新天地">黃埔新天地場</option>
+                <option value="又一城">又一城</option>
+                <option value="朗豪坊商場">朗豪坊商場</option>
+                <option value="新世紀廣場">新世紀廣場</option>
+                <option value="奧海城">奧海城</option>
+                <option value="MegaBox">MegaBox</option>
+                <option value="德福廣場商場">德福廣場商場</option>
+                <option value="荷里活廣場">荷里活廣場</option>
+                <option value="APM">APM</option>
             </select>
         </div>
 

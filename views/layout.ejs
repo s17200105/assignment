@@ -14,8 +14,69 @@
   </head>
 
   <body>
+      <!--<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+          <!--<a class="navbar-brand" href="/info/index">Q-pon</a>-->
+          <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">-->
+              <!--<span class="navbar-toggler-icon"></span>-->
+          <!--</button>-->
+          <!--<div class="collapse navbar-collapse" id="navbarNavAltMarkup">-->
+              <!--<div class="navbar-nav">-->
+                  <!--<a class="nav-item nav-link" href="/info/index">Home<span class="sr-only">(current)</span></a>-->
+                  <!--<a class="nav-item nav-link" href="/info/search">Search</a>-->
+                  <!--<a class="nav-item nav-link" href="/info/create">Create</a>-->
+                  <!--<a class="nav-item nav-link" href="/info/admin">Admin</a>-->
+                  <!--<label class="nav-item nav-link" >Welcome visitor<a href="/info/index">[Login]</a></label>-->
+              <!--</div>-->
+          <!--</div>-->
+      <!--</nav>-->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand" href="/info/index">Q-pon</a>
+
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                  <li class="nav-item active">
+                      <a class="nav-link" href="/info/index">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/info/search">Search</a>
+                  </li>
+                  <% if (username == "admin"){ %>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/info/create">Create</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/info/admin">Admin</a>
+                      </li>
+                  <%}%>
+                  <% if (username != "admin" && username != "Visitor"){ %>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/info/my_coupons">My Coupons</a>
+                      </li>
+                  <%}%>
+              </ul>
+              <form class="form-inline my-2 my-lg-0">
+                  <label class="nav-link" >Welcome, <%= username %>!</label>
+                  <% if (username == "Visitor"){ %>
+                    <a class="btn btn-outline-success my-2 my-sm-0"href="/user/login">Login</a>
+                  <%}else{%>
+                    <a class="btn btn-outline-success my-2 my-sm-0"href="/user/logout">Logout</a>
+                  <%}%>
+             </form>
+          </div>
+      </nav>
+
+      <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+              <h1 class="display-4">Q-pon</h1>
+              <p class="lead">Redeem your coins for dining coupons</p>
+          </div>
+      </div>
       <div class="container">
           <br><br>
+
           <%- body %>
       </div>
     <!--

@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-xl-6 col-12 col-sm-6 col-lg-6">
+        <h3>My Coupons</h3>
+    </div>
+    <div class="col-xl-6 col-12 col-sm-6 col-lg-6">
+        <h5 class="text-right">Account Balance:<%=coins%></h5>
+    </div>
+</div>
+<div class="row">
+        <% Qpons.forEach(function(model) { %>
+            <div class="card" style="width: 17rem;margin:5px;">
+                <img style="max-height: 150px;max-width:300px;" class="card-img-top" src="<%= model.image%>" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title text-primary"><%= model.title%></h5>
+                    <p class="card-text"><%= model.detail%></p>
+                    <p class="card-text">Expiry Day:<%= model.date%></p>
+                </div>
+            </div>
+        <% }); %>
+</div>

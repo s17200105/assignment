@@ -9,66 +9,142 @@ module.exports = {
 
     // index function
     index: function (req, res) {
+        if (req.session.username != null)
+            var username = req.session.username;
+        else
+            var username = "Visitor";
+
         Info.find().exec(function (err, infos) {
-            return res.view('info/index', { 'Infos': infos });
+            return res.view('info/index', { 'Infos': infos,'username': username, });
         });
     },
 
     // create function
     create: function (req, res) {
+        if (req.session.username != null)
+            var username = req.session.username;
+        else
+            var username = "Visitor";
+
         if (req.method == "POST") {
             Info.create(req.body.Info).exec(function (err, model) {
                 return res.view('info/message',
                     { 'state': 'Success',
-                     'value':'Create',
-                     'url':1});
+                        'username': username,
+                        'value':'Create',
+                        'url':1});
             });
         } else {
-            return res.view('info/create');
+            return res.view('info/create',{'username': username});
         }
     },
 
     // view function
     view: function (req, res) {
-        Info.findOne(req.params.id).exec(function (err, info) {
-            if (info != null)
-                return res.view('info/view', { 'info': info });
-            else
-                return res.send("No such info");
-        });
+        if (req.session.username != null)
+            var username = req.session.username;
+        else
+            var username = "Visitor";
+
+        if(req.method == "POST") {
+            Qpon.create(req.body.Qpon).exec(function (err, model){
+                Info.findOne(req.body.Qpon.titleid).exec(function (err, info) {
+                    Qpon.findOne({where:{username:req.session.username,titleid:req.body.Qpon.titleid}}).exec(function(err,qpon){
+                        if (info != null && qpon == null) {
+                            console.log("true");
+                            return res.view('info/view', {'info': info, 'username': username, 'status': true});
+                        }else if (info != null && qpon != null) {
+                            console.log("false");
+                            return res.view('info/view', {'info': info, 'username': username, 'status': false});
+                        }else
+                            return res.send("No such info");
+                    });
+                });
+            });
+        }else{
+            Info.findOne(req.params.id).exec(function (err, info) {
+                Qpon.findOne({where:{username:req.session.username,titleid:info.id}}).exec(function(err,qpon){
+                    if (info != null && qpon == null) {
+                        console.log("true");
+                        return res.view('info/view', {'info': info, 'username': username, 'status': true});
+                    }else if (info != null && qpon != null) {
+                        console.log("false");
+                        return res.view('info/view', {'info': info, 'username': username, 'status': false});
+                    }else
+                        return res.send("No such info");
+                });
+            });
+        }
     },
 
     // delete function
     delete: function(req, res) {
+        if (req.session.username != null)
+            var username = req.session.username;
+        else
+            var username = "Visitor";
+
         Info.findOne(req.params.id).exec( function(err, model) {
             if (model != null) {
                 model.destroy();
                 return res.view('info/message',
                     { 'state': 'Success',
+                        'username': username,
                         'value':'Delete',
                         'url':2});
             }
         });
     },
 
+    //my_coupons function
+    my_coupons: function(req, res){
+        var array
+        if (req.session.username != null)
+            var username = req.session.username;
+        else
+            var username = "Visitor";
+
+        Qpon.find({where:{username:req.session.username,}}).exec(function (err, qpons) {
+            console.log("find");
+            return res.view('info/my_coupons', { 'Qpons': qpons,'username': username,'coins':req.session.coins });
+        });
+    },
+
     //redirect function
     redirect: function (req, res) {
+        if (req.session.username != null)
+            var username = req.session.username;
+        else
+            var username = "Visitor";
+
         switch (req.params.id){
             case '1':
-                return res.view('info/create');
+                return res.view('info/create',{'username': username});
+                break;
             case '2':
                 Info.find().exec(function (err, infos) {
-                    return res.view('info/admin', { 'Infos': infos });
+                    return res.view('info/admin', { 'Infos': infos,'username': username });
                 });
+                break;
+            case '3':
+                Info.find().exec(function (err, infos) {
+                    return res.view('info/index', { 'Infos': infos,'username': username });
+                });
+                break;
         }
     },
 
     //update function
     update:function (req, res){
+        if (req.session.username != null)
+            var username = req.session.username;
+        else
+            var username = "Visitor";
+
         if(req.method == "GET"){
             Info.findOne(req.params.id).exec(function (err, info) {
                 if (info != null) {
-                    return res.view('info/update', { 'info': info });
+                    return res.view('info/update', { 'info': info,'username': username });
                 }
             });
         }else{
@@ -86,13 +162,15 @@ module.exports = {
                     info.save();
                     return res.view('info/message',
                         {'state': 'Success',
-                        'value': 'Update',
-                         'url':2});
+                            'value': 'Update',
+                            'username': username,
+                             'url':2});
                 } else {
                     return res.view('info/message',
                         {'state': 'Fail',
-                        'value': 'Update',
-                         'url':2});
+                            'value': 'Update',
+                            'username': username,
+                            'url':2});
                 }
             });
         }
@@ -101,8 +179,26 @@ module.exports = {
 
     //admin function
     admin: function (req, res) {
+        if (req.session.username != null)
+            var username = req.session.username;
+        else
+            var username = "Visitor";
         Info.find().exec(function (err, infos) {
-            return res.view('info/admin', { 'Infos': infos });
+            return res.view('info/admin', { 'Infos': infos,'username': username });
+        });
+    },
+
+    //member function
+    member:  function(req, res) {
+        if (req.session.username != null)
+            var username = req.session.username;
+        else
+            var username = "Visitor";
+        Qpon.find({
+            where:{
+                titleid:req.params.id,}
+        }).exec(function (err, qpons) {
+            return res.view('info/member', { 'Qpons': qpons,'username': username });
         });
     },
 
@@ -115,13 +211,18 @@ module.exports = {
 
     // paginate function
     search: function (req, res) {
+        if (req.session.username != null)
+            var username = req.session.username;
+        else
+            var username = "Visitor";
+
         const qPage = req.query.page || 1;
         if (req.method == "GET") {
 
             Info.find().paginate({page: qPage, limit: 2}).exec(function (err, infos) {
                 Info.count().exec(function (err, value) {
                     var pages = Math.ceil(value / 2);
-                    return res.view('info/search', {'infos': infos, 'count': pages});
+                    return res.view('info/search', {'infos': infos, 'count': pages,'username': username});
                 });
             });
         }else if(req.method == "POST") {
@@ -135,11 +236,12 @@ module.exports = {
                 }
             }).paginate({page: qPage, limit: 2}).exec(function (err, infos) {
                 if (infos != null) {
-                    return res.view('info/search', { 'infos': infos});
+                    return res.view('info/search', { 'infos': infos,'username': username});
                 }else{
                     return res.view('info/message',
                         {'state': 'Fail',
                             'value': 'Update',
+                            'username': username,
                             'url':2});
                 }
             });

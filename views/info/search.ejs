@@ -1,25 +1,4 @@
 <% var count = 0;%>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Q-pon</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link" href="/info/index">Home<span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link active" href="/info/search">Search</a>
-            <a class="nav-item nav-link" href="/info/create">Create</a>
-            <a class="nav-item nav-link" href="/info/admin">Admin</a>
-        </div>
-    </div>
-</nav>
-
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">Q-pon</h1>
-        <p class="lead">Redeem your coins for dining coupons</p>
-    </div>
-</div>
 <div class="row">
     <% infos.forEach( function(model) {
     count++;%>
@@ -28,7 +7,7 @@
             <img style="max-height: 200px;max-width:350px;" class="card-img-top" src="<%= model.image%>" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title text-primary"><%= model.title%></h5>
-                <p class="card-text">Coins:<%= model.detail%></p>
+                <p class="card-text">Coins:<%= model.coin%></p>
                 <a href="/info/view/<%= model.id%>" class="btn btn-primary">Know more</a>
             </div>
         </div>

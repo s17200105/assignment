@@ -1,24 +1,3 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Q-pon</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="/info/index">Home<span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="/info/search">Search</a>
-            <a class="nav-item nav-link" href="/info/create">Create</a>
-            <a class="nav-item nav-link" href="/info/admin">Admin</a>
-        </div>
-    </div>
-</nav>
-
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">Q-pon</h1>
-        <p class="lead">Redeem your coins for dining coupons</p>
-    </div>
-</div>
 <div class="row">
 
     <div id="hki" class="col-xl-4 col-12 col-sm-6 col-lg-6">
@@ -29,7 +8,7 @@
             <img style="max-height: 150px;max-width:300px;" class="card-img-top" src="<%= model.image%>" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title text-primary"><%= model.title%></h5>
-                <p class="card-text">Coins:<%= model.detail%></p>
+                <p class="card-text">Coins:<%= model.coin%></p>
                 <a href="/info/view/<%= model.id%>" class="btn btn-primary">Know more</a>
             </div>
         </div>
@@ -45,7 +24,7 @@
             <img style="max-height: 150px;max-width:300px;" class="card-img-top" src="<%= model.image%>" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title text-primary"><%= model.title%></h5>
-                <p class="card-text">Coins:<%= model.detail%></p>
+                <p class="card-text">Coins:<%= model.coin%></p>
                 <a href="/info/view/<%= model.id%>" class="btn btn-primary">Know more</a>
             </div>
         </div>
@@ -61,7 +40,7 @@
             <img style="max-height: 150px;max-width:300px;" class="card-img-top" src="<%= model.image%>" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title text-primary"><%= model.title%></h5>
-                <p class="card-text">Coins:<%= model.detail%></p>
+                <p class="card-text">Coins:<%= model.coin%></p>
                 <a href="/info/view/<%= model.id%>" class="btn btn-primary">Know more</a>
             </div>
         </div>

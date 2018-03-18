@@ -48,4 +48,13 @@ module.exports.policies = {
 		// before letting any users feed our rabbits
 		// feed : ['isNiceToAnimals', 'hasRabbitFood']
 	// }
+
+  InfoController: {
+
+      create: 'isAdmin',
+      admin: 'isAdmin',
+      update:'isAdmin',
+      delete:'isAdmin',
+      member:'isAdmin'
+  }
 };
