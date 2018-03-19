@@ -33,6 +33,10 @@ module.exports = {
         type: 'string',
         unique: false
     },
+    quota: {
+        type: 'string',
+        unique: false
+    },
     coin: {
         type: 'string',
         unique: false

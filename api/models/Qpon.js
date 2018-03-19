@@ -11,9 +11,18 @@ module.exports = {
       related: {
           collection: 'Info',
           via: 'belongTo'
+      },
+      with:{
+          collection: 'User',
+          via: "have"
       }
+
   },
     username:{
+        type: 'string',
+        unique: false
+    },
+    userid:{
         type: 'string',
         unique: false
     },

@@ -43,6 +43,7 @@ module.exports = {
     view: function (req, res) {
         if (req.session.username != null)
             var username = req.session.username;
+
         else
             var username = "Visitor";
 
@@ -58,8 +59,12 @@ module.exports = {
 
                         Qpon.create(req.body.Qpon).exec(function (err, model) {
                             model.related.add(model.titleid);
+                            model.with.add(model.userid);
                             model.save();
                             Info.findOne(req.body.Qpon.titleid).exec(function (err, info) {
+                                info.quota --;
+                                info.save();
+                                console.log("quota:"+info.quota);
                                 Qpon.findOne({
                                     where: {
                                         username: req.session.username,
@@ -68,10 +73,10 @@ module.exports = {
                                 }).exec(function (err, qpon) {
                                     if (info != null && qpon == null) {
                                         console.log("true");
-                                        return res.view('info/view', {'info': info, 'username': username, 'status': true});
+                                        return res.view('info/view', {'info': info, 'username': username, 'status': true, 'id':req.session.userid});
                                     } else if (info != null && qpon != null) {
                                         console.log("false");
-                                        return res.view('info/view', {'info': info, 'username': username, 'status': false});
+                                        return res.view('info/view', {'info': info, 'username': username, 'status': false,'id':req.session.userid});
                                     } else
                                         return res.send("No such info");
                                 });
@@ -85,10 +90,10 @@ module.exports = {
                 Qpon.findOne({where:{username:req.session.username,titleid:info.id}}).exec(function(err,qpon){
                     if (info != null && qpon == null) {
                         console.log("true");
-                        return res.view('info/view', {'info': info, 'username': username, 'status': true});
+                        return res.view('info/view', {'info': info, 'username': username, 'status': true, 'id':req.session.userid});
                     }else if (info != null && qpon != null) {
                         console.log("false");
-                        return res.view('info/view', {'info': info, 'username': username, 'status': false});
+                        return res.view('info/view', {'info': info, 'username': username, 'status': false, 'id':req.session.userid});
                     }else
                         return res.send("No such info");
                 });

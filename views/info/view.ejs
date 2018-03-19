@@ -17,6 +17,7 @@
                     </ul>
                 </div>
                 <input type="hidden" name="Qpon[username]" value="<%=username%>">
+                <input type="hidden" name="Qpon[userid]" value="<%=id%>">
                 <input type="hidden" name="Qpon[titleid]" value=<%=info.id%>>
                 <input type="hidden" name="Qpon[title]" value="<%=info.title%>">
                 <input type="hidden" name="Qpon[restaurant]" value="<%=info.restaurant%>">
@@ -27,7 +28,7 @@
                 <input type="hidden" name="Qpon[date]" value="<%=info.date%>">
                 <input type="hidden" name="Qpon[detail]" value="<%=info.detail%>">
 
-                <%if(username != "Visitor" && username != "admin" && status != false){%>
+                <%if(username != "Visitor" && username != "admin" && status != false && info.quota > 0){%>
                     <input type="submit" class="btn btn-lg btn-primary" value="Redeem">
                  <% }%>
             </form>

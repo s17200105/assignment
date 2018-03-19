@@ -12,6 +12,10 @@ module.exports = {
           var obj = this.toObject();
           delete obj.password;
           return obj;
+      },
+      have:{
+          collection: 'Qpon',
+          via: 'with'
       }
   },
     username: {

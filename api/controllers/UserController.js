@@ -33,6 +33,8 @@ module.exports = {
                     console.log("The new session id is " + req.session.id + ".");
 
                     req.session.username = req.body.username;
+                    req.session.userid = user.id;
+                    console.log(user.id);
                     req.session.coins = user.coins;
 
                     return res.send("login successfully.");
