@@ -47,22 +47,39 @@ module.exports = {
             var username = "Visitor";
 
         if(req.method == "POST") {
-            Qpon.create(req.body.Qpon).exec(function (err, model){
-                model.related.add(model.titleid);
-                model.save();
-                Info.findOne(req.body.Qpon.titleid).exec(function (err, info) {
-                    Qpon.findOne({where:{username:req.session.username,titleid:req.body.Qpon.titleid}}).exec(function(err,qpon){
-                        if (info != null && qpon == null) {
-                            console.log("true");
-                            return res.view('info/view', {'info': info, 'username': username, 'status': true});
-                        }else if (info != null && qpon != null) {
-                            console.log("false");
-                            return res.view('info/view', {'info': info, 'username': username, 'status': false});
-                        }else
-                            return res.send("No such info");
-                    });
+            if(req.session.coins- req.body.Qpon.coin >=0) {
+                User.findOne({where:{username:username}
+                }).exec(function (err, user) {
+                    if (user != null) {
+                        user.username = req.session.username
+                        user.coins = req.session.coins - req.body.Qpon.coin;
+                        user.save();
+                        req.session.coins= user.coins;
+
+                        Qpon.create(req.body.Qpon).exec(function (err, model) {
+                            model.related.add(model.titleid);
+                            model.save();
+                            Info.findOne(req.body.Qpon.titleid).exec(function (err, info) {
+                                Qpon.findOne({
+                                    where: {
+                                        username: req.session.username,
+                                        titleid: req.body.Qpon.titleid
+                                    }
+                                }).exec(function (err, qpon) {
+                                    if (info != null && qpon == null) {
+                                        console.log("true");
+                                        return res.view('info/view', {'info': info, 'username': username, 'status': true});
+                                    } else if (info != null && qpon != null) {
+                                        console.log("false");
+                                        return res.view('info/view', {'info': info, 'username': username, 'status': false});
+                                    } else
+                                        return res.send("No such info");
+                                });
+                            });
+                        });
+                    }
                 });
-            });
+            }
         }else{
             Info.findOne(req.params.id).exec(function (err, info) {
                 Qpon.findOne({where:{username:req.session.username,titleid:info.id}}).exec(function(err,qpon){
