@@ -55,6 +55,7 @@ module.exports.policies = {
       admin: 'isAdmin',
       update:'isAdmin',
       delete:'isAdmin',
-      member:'isAdmin'
+      member:'isAdmin',
+      my_coupons:'isUser'
   }
 };
