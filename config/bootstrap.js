@@ -14,6 +14,7 @@ module.exports.bootstrap = function(cb) {
     // Load the bcrypt module
     var bcrypt = require('bcrypt');
 
+    // Generate a salt
     var salt = bcrypt.genSaltSync(10);
 
   // It's very important to trigger this callback method when you are finished
@@ -71,7 +72,10 @@ module.exports.bootstrap = function(cb) {
         //         }
         //     });
         // });
-        Qpon.create(qpon).exec(function (err, model) {});
+        Qpon.create(qpon).exec(function (err, model) {
+            model.related.add(model.titleid);
+            model.save();
+        });
     });
     cb();
 };

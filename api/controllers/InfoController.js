@@ -48,6 +48,8 @@ module.exports = {
 
         if(req.method == "POST") {
             Qpon.create(req.body.Qpon).exec(function (err, model){
+                model.related.add(model.titleid);
+                model.save();
                 Info.findOne(req.body.Qpon.titleid).exec(function (err, info) {
                     Qpon.findOne({where:{username:req.session.username,titleid:req.body.Qpon.titleid}}).exec(function(err,qpon){
                         if (info != null && qpon == null) {

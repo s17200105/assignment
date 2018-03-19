@@ -8,7 +8,10 @@
 module.exports = {
 
   attributes: {
-
+      belongTo: {
+          collection: 'Qpon',
+          via: 'related'
+      },
   },
     title: {
         type: 'string',

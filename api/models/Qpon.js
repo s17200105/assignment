@@ -8,7 +8,10 @@
 module.exports = {
 
   attributes: {
-
+      related: {
+          collection: 'Info',
+          via: 'belongTo'
+      }
   },
     username:{
         type: 'string',
