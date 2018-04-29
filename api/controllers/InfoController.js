@@ -9,14 +9,20 @@ module.exports = {
 
     // index function
     index: function (req, res) {
-        if (req.session.username != null)
-            var username = req.session.username;
-        else
-            var username = "Visitor";
+        if (req.method == "GET") {
+            if (req.session.username != null)
+                var username = req.session.username;
+            else
+                var username = "Visitor";
 
-        Info.find().exec(function (err, infos) {
-            return res.view('info/index', { 'Infos': infos,'username': username, });
-        });
+            Info.find().exec(function (err, infos) {
+                return res.view('info/index', {'Infos': infos, 'username': username,});
+            });
+        }else{
+            Info.find().exec(function (err, infos) {
+                return res.send({'Infos': infos, 'username': username});
+            });
+        }
     },
 
     // create function
@@ -27,7 +33,9 @@ module.exports = {
             var username = "Visitor";
 
         if (req.method == "POST") {
+            console.log("creating:",username);
             Info.create(req.body.Info).exec(function (err, model) {
+                console.log("success");
                 return res.view('info/message',
                     { 'state': 'Success',
                         'username': username,
@@ -37,6 +45,43 @@ module.exports = {
         } else {
             return res.view('info/create',{'username': username});
         }
+    },
+
+    //add function
+    view_mob: function (req,res) {
+        var item = req.body.item;
+        var username = req.body.username;
+        var id = req.body.id;
+        var Qpon_item = {
+            "userid":id,
+            "username":username,
+            "titleid":item.id,
+            "title":item.title,
+            "restaurant":item.restaurant,
+            "district":item.district,
+            "mall":item.mall,
+            "image":item.image,
+            "coin":item.coin,
+            "date":item.date,
+            "detail":item.detail};
+        User.findOne({where:{username:username}
+        }).exec(function (err, user) {
+            if (user.coins - item.coin >= 0){
+                user.username = req.session.username
+                user.coins = user.coins - item.coin;
+                user.save();
+            }
+        });
+
+        Qpon.create(Qpon_item).exec(function (err, model) {
+            model.save();
+        });
+
+        Info.findOne(item.id).exec(function (err, info){
+            info.quota--;
+            info.save();
+        });
+        console.log ("success");
     },
 
     // view function
@@ -128,10 +173,16 @@ module.exports = {
         else
             var username = "Visitor";
 
-        Qpon.find({where:{username:req.session.username,}}).exec(function (err, qpons) {
-            console.log("find");
-            return res.view('info/my_coupons', { 'Qpons': qpons,'username': username,'coins':req.session.coins });
-        });
+        console.log("checking",username);
+        if(req.method == "GET"){
+            Qpon.find({where:{username:req.session.username,}}).exec(function (err, qpons) {
+                return res.view('info/my_coupons', { 'Qpons': qpons,'username': username,'coins':req.session.coins });
+            });
+        }else{
+            Qpon.find({where:{username:req.body.username,}}).exec(function (err, qpons) {
+                return res.send(qpons);
+            });
+        }
     },
 
     //redirect function

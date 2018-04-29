@@ -16,6 +16,7 @@ module.exports = {
         if (req.method == "GET")
             return res.view('user/login',{'username': username});
         else {
+            console.log(req.body.username.toString(),req.body.password)
             User.findOne({ username: req.body.username }).exec(function (err, user) {
                 // Load the bcrypt module
                 var bcrypt = require('bcrypt');
@@ -36,8 +37,13 @@ module.exports = {
                     req.session.userid = user.id;
                     console.log(user.id);
                     req.session.coins = user.coins;
-
-                    return res.send("login successfully.");
+                    console.log("login successfully.");
+                    var result = {
+                        "username":req.body.username,
+                        "userid":user.id,
+                        "status":true
+                    };
+                    return res.send(result);
                 });
             });
         }
@@ -46,9 +52,18 @@ module.exports = {
 
         console.log("The current session id " + req.session.id + " is going to be destroyed.");
 
-        req.session.destroy(function (err) {
-            return res.view('user/logout',{'username': "Visitor"});
-        });
+        if (req.method == "GET") {
+            console.log("The current session id " + req.session.id + " is going to be destroyed.");
+
+            req.session.destroy(function (err) {
+                return res.view('user/logout', {'username': "Visitor"});
+            });
+        }else{
+            req.session.destroy(function (err) {
+                return res.send('success');
+            });
+        }
+
     },
 };
 

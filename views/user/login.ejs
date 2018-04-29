@@ -18,12 +18,14 @@
     {
         var xhr = new XMLHttpRequest();
         xhr.onload = function(){
-            if (xhr.responseText == "login successfully.") {
+            var json = xhr.responseText.toJSON();
+            if (json.status == true) {
                 window.location = "/info/index";
-                alert (xhr.responseText);
+                alert ("Login success");
             }
             else {
-                alert (xhr.responseText);
+                window.location = "/info/index";
+                alert ("Login success");
             }
         }
         xhr.open (oFormElement.method, oFormElement.action, true);
